@@ -1,0 +1,50 @@
+sudo yum -y install epel-release
+soud yum -y install hostapd iw dnsmasq
+
+rfkill unblock all  
+ifconfig wlan0 up 192.168.0.1 netmask 255.255.255.0  
+sleep 2
+
+
+vi /etc/dnsmasq.conf  
+interface=wlan0  
+bind-interfaces  
+listen-address=192.168.0.1  
+#no-dhcp-interface= 
+dhcp-range=192.168.0.2,192.168.0.224,12h  
+dhcp-option=3,192.168.0.1  
+dhcp-option=6,223.5.5.5  
+
+
+/etc/hostapd/hostapd.conf
+
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=wheel
+interface=wlp8s0
+driver=nl80211
+ssid=marstest
+hw_mode=g
+channel=3
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+ap_isolate=1
+wpa=2
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+wpa_passphrase=12345678
+wme_enabled=1
+ieee80211n=1
+
+iptables -F  
+iptables -X  
+iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+
+sysctl -w net.ipv4.ip_forward=1
+
+
+if [ -z "$(ps -e | grep dnsmasq)" ]  
+then  
+ dnsmasq
+fi
