@@ -2,7 +2,7 @@ sudo yum -y install epel-release
 soud yum -y install hostapd iw dnsmasq rfkill
 
 rfkill unblock all  
-ifconfig wlan0 up 192.168.0.1 netmask 255.255.255.0  
+ifconfig wlp8s0 up 192.168.0.1 netmask 255.255.255.0  
 sleep 2
 
 
@@ -39,7 +39,7 @@ ieee80211n=1
 
 iptables -F  
 iptables -X  
-iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o enp9s0 -j MASQUERADE
 
 sysctl -w net.ipv4.ip_forward=1
 
