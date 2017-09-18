@@ -13,7 +13,7 @@ listen-address=192.168.0.1
 #no-dhcp-interface= 
 dhcp-range=192.168.0.2,192.168.0.224,12h  
 dhcp-option=3,192.168.0.1  
-dhcp-option=6,223.5.5.5  
+dhcp-option=6,8.8.8.8
 
 
 /etc/hostapd/hostapd.conf
