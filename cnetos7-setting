@@ -1,0 +1,4 @@
+setterm -blength 0
+alias ll=`ls -lsa --color`
+alias grep=`grep --color`
+alias h=`history 100`
