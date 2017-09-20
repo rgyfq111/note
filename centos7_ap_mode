@@ -2,6 +2,11 @@ sudo yum -y install epel-release
 soud yum -y install hostapd iw dnsmasq rfkill
 
 
+vim /etc/systemd/logind.conf
+#HandlePowerKey=poweroff
+#HandleSuspendKey=suspend
+#HandleHibernateKey=hibernate
+#HandleLidSwitch=ignore
 
 
 rfkill unblock all  
