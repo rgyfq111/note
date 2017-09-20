@@ -1,6 +1,9 @@
 sudo yum -y install epel-release
 soud yum -y install hostapd iw dnsmasq rfkill
 
+
+
+
 rfkill unblock all  
 ifconfig wlp8s0 up 192.168.0.1 netmask 255.255.255.0  
 sleep 2
@@ -14,6 +17,25 @@ listen-address=192.168.0.1
 dhcp-range=192.168.0.2,192.168.0.224,12h  
 dhcp-option=3,192.168.0.1  
 dhcp-option=6,8.8.8.8
+
+vim /etc/systemd/system/wifiap.service
+[Unit]
+Description=WIFI AP SERVICE
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/rfkill unblock all
+ExecStart=/usr/sbin/ifconfig wlp8s0 up 192.168.0.1 netmask 255.255.255.0
+ExecStart=/usr/sbin/hostapd /etc/hostapd/hostapd.conf -P /run/hostapd.pid -B
+ExecStart=/usr/sbin/dnsmasq
+ExecStop=
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+
 
 
 /etc/hostapd/hostapd.conf
