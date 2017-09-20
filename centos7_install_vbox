@@ -1,0 +1,14 @@
+cd /etc/yum.repos.d/
+
+#For CentOS/RHEL Systems:
+wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+
+yum install gcc make patch  dkms qt libgomp
+yum install kernel-headers kernel-devel fontforge binutils glibc-headers glibc-devel
+
+#版號依系統
+export KERN_DIR=/usr/src/kernels/2.6.32-504.3.3.el6.x86_64 
+yum install VirtualBox-5.1
+
+systemctl enable vboxdrv
+systemctl start vboxdrv
